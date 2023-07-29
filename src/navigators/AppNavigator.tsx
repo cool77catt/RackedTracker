@@ -1,22 +1,14 @@
-import * as React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+// import * as React from 'react';
 import { ActiveWorkoutScreen } from '../screens/ActiveWorkoutScreen';
 
 const AppNavigator = () => {
-  const styles = useStyles();
+  const Stack = createNativeStackNavigator();
   return (
-    <View style={styles.mainContainer}>
-      <ActiveWorkoutScreen />
-    </View>
+    <Stack.Navigator initialRouteName="Home">
+      <Stack.Screen name="Active Workout" component={ActiveWorkoutScreen} />
+    </Stack.Navigator>
   );
-};
-
-const useStyles = () => {
-  return StyleSheet.create({
-    mainContainer: {
-      height: '100%',
-    },
-  });
 };
 
 export default AppNavigator;
