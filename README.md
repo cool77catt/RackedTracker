@@ -6,9 +6,13 @@ _assets_: This directory contains static assets like images and fonts.
 
 _components_: This directory contains reusable React components. Each component has its own subdirectory with an index.js file.
 
+_navigators_: This directory contains the navigation components used within the app
+
 _screens_: This directory contains the different "screens" or "pages" of your app. Like with components, each screen has its own subdirectory with an index.js file.
 
 _services_: This directory contains modules for interacting with external services, like an API.
+
+_themes_: This directory contains the custom themes that will be used throughout the app
 
 _utils_: This directory contains utility functions and constants that are used throughout the app.
 
