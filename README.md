@@ -16,7 +16,7 @@ _themes_: This directory contains the custom themes that will be used throughout
 
 _utils_: This directory contains utility functions and constants that are used throughout the app.
 
-_tests_: This directory contains tests for your components and screens.
+_\_\_tests\_\__: This directory contains tests for your components and screens.
 
 _node_modules_: This directory contains all the dependencies of your project.
 
