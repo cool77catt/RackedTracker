@@ -1,13 +1,21 @@
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 // import * as React from 'react';
-import { ActiveWorkoutScreen } from '../screens/ActiveWorkoutScreen';
+import ActiveWorkoutNavigator from './ActiveWorkoutNavigator';
+
+const Tab = createBottomTabNavigator();
 
 const AppNavigator = () => {
-  const Stack = createNativeStackNavigator();
   return (
-    <Stack.Navigator initialRouteName="Home">
-      <Stack.Screen name="Active Workout" component={ActiveWorkoutScreen} />
-    </Stack.Navigator>
+    <Tab.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
+      <Tab.Screen
+        name="Active Workout Home"
+        component={ActiveWorkoutNavigator}
+      />
+    </Tab.Navigator>
   );
 };
 

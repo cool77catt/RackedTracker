@@ -77,7 +77,7 @@ const WorkoutTimers = ({ isEnabled }: TimersProps) => {
       </View>
       <View style={styles.buttonContainer}>
         <TimerControls
-          isEnabled={isEnabled}
+          isEnabled={true}
           isRunning={timerIsRunning}
           isPaused={timerIsPaused}
           eventHandler={timerControlCallback}

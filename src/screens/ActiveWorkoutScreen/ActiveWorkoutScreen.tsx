@@ -18,7 +18,7 @@ const ActiveWorkoutScreen = () => {
 
   return (
     <SafeAreaView style={styles.mainContainer}>
-      <View style={styles.stopwatchContainer}>
+      <View style={styles.timersContainer}>
         <WorkoutTimers isEnabled={workoutActive} />
       </View>
       <View style={styles.listContainer}>
@@ -43,7 +43,7 @@ const useStyles = () => {
       height: '100%',
       borderWidth: 1,
     },
-    stopwatchContainer: {
+    timersContainer: {
       height: 200,
       width: '100%',
       borderWidth: 1,
