@@ -1,7 +1,14 @@
+import { ParamListBase, useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useCallback } from 'react';
 import { StyleSheet, View } from 'react-native';
-import ControlButton from './ControlButton';
-import TimerEditModal from './TimerEditModal';
+import TimerControlButton from './TimerControlButton';
+
+const START_ICON = 'play';
+const PAUSE_ICON = 'pause';
+const STOP_ICON = 'stop';
+const RESUME_ICON = 'play';
+const EDIT_ICON = 'pencil';
 
 export enum TimerControlsEventType {
   Start,
@@ -24,25 +31,29 @@ const TimerControls = ({
   eventHandler,
 }: TimerControlsProps) => {
   const styles = useStyles();
+  const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
 
   const renderActiveButtons = useCallback(() => {
     return (
       <>
         {!isPaused ? (
-          <ControlButton
+          <TimerControlButton
             text="Pause"
+            icon={PAUSE_ICON}
             isEnabled={isEnabled}
             onPress={() => eventHandler?.(TimerControlsEventType.Pause)}
           />
         ) : (
-          <ControlButton
+          <TimerControlButton
             text="Resume"
+            icon={RESUME_ICON}
             isEnabled={isEnabled}
             onPress={() => eventHandler?.(TimerControlsEventType.Resume)}
           />
         )}
-        <ControlButton
+        <TimerControlButton
           text="Stop"
+          icon={STOP_ICON}
           isEnabled={isEnabled}
           onPress={() => eventHandler?.(TimerControlsEventType.Stop)}
         />
@@ -53,19 +64,26 @@ const TimerControls = ({
   const renderInactiveButtons = useCallback(() => {
     return (
       <>
-        <ControlButton
+        <TimerControlButton
           text="Start"
           isEnabled={isEnabled}
+          icon={START_ICON}
           onPress={() => eventHandler?.(TimerControlsEventType.Start)}
         />
-        <ControlButton text="Edit" isEnabled={isEnabled} />
+        <TimerControlButton
+          text="Edit"
+          isEnabled={isEnabled}
+          icon={EDIT_ICON}
+          onPress={() => {
+            navigation.navigate('Edit Timer');
+          }}
+        />
       </>
     );
-  }, [eventHandler, isEnabled]);
+  }, [eventHandler, isEnabled, navigation]);
 
   return (
     <>
-      <TimerEditModal visible={false} />
       <View style={styles.container}>
         {isRunning ? renderActiveButtons() : renderInactiveButtons()}
       </View>
@@ -79,6 +97,7 @@ const useStyles = () => {
       flex: 1,
       flexDirection: 'row',
       justifyContent: 'center',
+      alignItems: 'center',
     },
   });
 };

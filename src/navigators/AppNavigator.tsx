@@ -1,22 +1,22 @@
-import * as React from 'react';
-import { StyleSheet, View } from 'react-native';
-import { ActiveWorkoutScreen } from '../screens/ActiveWorkoutScreen';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+// import * as React from 'react';
+import ActiveWorkoutNavigator from './ActiveWorkoutNavigator';
+
+const Tab = createBottomTabNavigator();
 
 const AppNavigator = () => {
-  const styles = useStyles();
   return (
-    <View style={styles.mainContainer}>
-      <ActiveWorkoutScreen />
-    </View>
+    <Tab.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
+      <Tab.Screen
+        name="Active Workout Home"
+        component={ActiveWorkoutNavigator}
+      />
+    </Tab.Navigator>
   );
-};
-
-const useStyles = () => {
-  return StyleSheet.create({
-    mainContainer: {
-      height: '100%',
-    },
-  });
 };
 
 export default AppNavigator;

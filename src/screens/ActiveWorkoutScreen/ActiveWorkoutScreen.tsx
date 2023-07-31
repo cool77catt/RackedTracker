@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { SafeAreaView, StyleSheet, View } from 'react-native';
 import ActiveWorkoutList from './ActiveWorkoutList';
 import WorkoutControlButton from './WorkoutControlButton';
 import { WorkoutTimers } from './WorkoutTimers';
@@ -17,8 +17,8 @@ const ActiveWorkoutScreen = () => {
   }, []);
 
   return (
-    <View style={styles.mainContainer}>
-      <View style={styles.stopwatchContainer}>
+    <SafeAreaView style={styles.mainContainer}>
+      <View style={styles.timersContainer}>
         <WorkoutTimers isEnabled={workoutActive} />
       </View>
       <View style={styles.listContainer}>
@@ -30,7 +30,7 @@ const ActiveWorkoutScreen = () => {
           onPress={workoutControlButtonPressed}
         />
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -40,10 +40,13 @@ const useStyles = () => {
       flex: 1,
       alignItems: 'center',
       justifyContent: 'center',
+      height: '100%',
+      borderWidth: 1,
     },
-    stopwatchContainer: {
+    timersContainer: {
       height: 200,
       width: '100%',
+      borderWidth: 1,
     },
     listContainer: {
       flex: 1,
