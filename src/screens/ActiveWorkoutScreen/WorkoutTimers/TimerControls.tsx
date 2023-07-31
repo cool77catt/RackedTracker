@@ -1,4 +1,5 @@
-import { useNavigation } from '@react-navigation/native';
+import { ParamListBase, useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useCallback } from 'react';
 import { StyleSheet, View } from 'react-native';
 import TimerControlButton from './TimerControlButton';
@@ -30,7 +31,7 @@ const TimerControls = ({
   eventHandler,
 }: TimerControlsProps) => {
   const styles = useStyles();
-  const navigation = useNavigation();
+  const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
 
   const renderActiveButtons = useCallback(() => {
     return (

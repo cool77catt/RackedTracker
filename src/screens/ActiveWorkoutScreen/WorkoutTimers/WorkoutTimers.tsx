@@ -1,8 +1,9 @@
 // TODO: FEATURE - allow ability to change sounds, and set volume to 1 for the non-silent sounds
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import Sound from 'react-native-sound';
 import AlarmTone from '../../../assets/mixkit-alarm-tone-996.wav';
+import { TimerContext } from '../../../contexts';
 import Stopwatch from './Stopwatch';
 import Timer from './Timer';
 import TimerControls, { TimerControlsEventType } from './TimerControls';
@@ -12,10 +13,10 @@ export type TimersProps = {
 };
 
 const WorkoutTimers = ({ isEnabled }: TimersProps) => {
-  const [timerDuration, setTimerDuration] = useState(5); // 90 seconds
   const [timerIsRunning, setTimerIsRunning] = useState(false);
   const [timerIsPaused, setTimerIsPaused] = useState(false);
   const [alarmSound, setAlarmSound] = useState<Sound | null>(null);
+  const timerContext = useContext(TimerContext);
   const styles = useStyles();
 
   useEffect(() => {
@@ -24,7 +25,6 @@ const WorkoutTimers = ({ isEnabled }: TimersProps) => {
         console.warn('Error loading sound: ', error);
         return;
       }
-      console.log('loaded sound successfully');
       tmpSound.setVolume(0); // Silence for now
       setAlarmSound(tmpSound);
     });
@@ -62,13 +62,12 @@ const WorkoutTimers = ({ isEnabled }: TimersProps) => {
 
   return (
     <View style={styles.mainContainer}>
-      {/* <TimerEditModal visible={true} /> */}
       <View style={styles.stopwatchContainer}>
         <Stopwatch isRunning={isEnabled} textVariant="displaySmall" />
       </View>
       <View style={styles.timerContainer}>
         <Timer
-          duration={timerDuration}
+          duration={timerContext?.duration ?? 0}
           isRunning={timerIsRunning}
           isPaused={timerIsPaused}
           onExpired={timerExpiredCallback}
@@ -82,7 +81,6 @@ const WorkoutTimers = ({ isEnabled }: TimersProps) => {
           isPaused={timerIsPaused}
           eventHandler={timerControlCallback}
         />
-        {/* <View style={styles.buttonRunningContainer}>{renderButtons()}</View> */}
       </View>
     </View>
   );

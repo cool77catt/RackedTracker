@@ -1,8 +1,9 @@
 import { useNavigation } from '@react-navigation/native';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { Button, Card, Text, useTheme } from 'react-native-paper';
 import { ScrollPickerProps } from 'react-native-wheel-scrollview-picker';
+import { TimerContext } from '../../contexts';
 import Picker, { PickerHeight } from './Picker';
 
 function formatTime(seconds: number): string {
@@ -16,13 +17,18 @@ function formatTime(seconds: number): string {
 const TimerEditScreen = () => {
   const theme = useTheme();
   const navigation = useNavigation();
+  const timerContext = useContext(TimerContext);
   const styles = useStyles({ cardBackgroundColor: theme.colors.background });
-  const [minutesIndex, setMinutesIndex] = useState(1);
-  const [secondsIndex, setSecondsIndex] = useState(0);
   const minutesOptions = Array.from({ length: 60 }, (_, i) => i);
   const secondsOptions = Array.from({ length: 60 }, (_, i) => i);
 
-  const presetTimes = [30, 60, 90, 120, 150, 180];
+  // Breakdown the duration into minutes and seconds
+  const minutes = timerContext ? Math.floor(timerContext.duration / 60) : 0;
+  const seconds = timerContext ? timerContext.duration % 60 : 0;
+  const [minutesIndex, setMinutesIndex] = useState(minutes);
+  const [secondsIndex, setSecondsIndex] = useState(seconds);
+
+  const presetTimes = [30, 45, 60, 75, 90, 105, 120, 135, 150, 165, 180];
 
   return (
     <View style={styles.container}>
@@ -40,7 +46,7 @@ const TimerEditScreen = () => {
                   style={styles.presetButton}
                   onPress={() => {
                     // Set the new value
-                    console.log('new value: ', time);
+                    timerContext?.setDuration(time);
                     navigation.goBack();
                   }}
                 >
@@ -82,21 +88,15 @@ const TimerEditScreen = () => {
           mode="contained"
           style={styles.setButton}
           onPress={() => {
-            const minutes = minutesOptions[minutesIndex];
-            const seconds = secondsOptions[secondsIndex];
-            const totalSeconds = minutes * 60 + seconds;
-            console.log('set timer to: ', totalSeconds);
+            const totalSeconds =
+              minutesOptions[minutesIndex] * 60 + secondsOptions[secondsIndex];
+            timerContext?.setDuration(totalSeconds);
             navigation.goBack();
           }}
         >
           Set
         </Button>
       </View>
-      {/* {presetTimes.map((time) => (
-        <Button key={time} mode="contained">
-          {time}
-        </Button>
-      ))} */}
     </View>
   );
 };
