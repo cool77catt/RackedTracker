@@ -2,8 +2,8 @@
 import { useCallback, useContext, useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import Sound from 'react-native-sound';
-import AlarmTone from '../../../assets/mixkit-alarm-tone-996.wav';
-import { TimerContext } from '../../../contexts';
+import AlarmTone from '../../../../assets/mixkit-alarm-tone-996.wav';
+import { TimerContext } from '../../../../contexts';
 import Stopwatch from './Stopwatch';
 import Timer from './Timer';
 import TimerControls, { TimerControlsEventType } from './TimerControls';

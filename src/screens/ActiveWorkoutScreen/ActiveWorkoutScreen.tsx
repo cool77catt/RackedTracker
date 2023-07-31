@@ -1,8 +1,8 @@
 import { useCallback, useState } from 'react';
 import { SafeAreaView, StyleSheet, View } from 'react-native';
-import ActiveWorkoutList from './ActiveWorkoutList';
-import WorkoutControlButton from './WorkoutControlButton';
-import { WorkoutTimers } from './WorkoutTimers';
+import ActiveWorkoutList from './components/ActiveWorkoutList';
+import WorkoutControlButton from './components/WorkoutControlButton';
+import { WorkoutTimers } from './components/WorkoutTimers';
 
 const ActiveWorkoutScreen = () => {
   const [workoutActive, setWorkoutActive] = useState(false);
